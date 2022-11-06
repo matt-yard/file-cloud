@@ -19,10 +19,12 @@ const ConfirmEmail = ({ email }) => {
   };
 
   return (
-    <div id="confirm-container">
-      <h2>Please enter the code sent to your email.</h2>
-      <p>{errorMessage}</p>
+    <>
       <form className="auth-form" onSubmit={handleSubmit}>
+        <h2>Please enter the code sent to your email.</h2>
+        <div hidden={!errorMessage} className="error-message">
+          <p>{errorMessage}</p>
+        </div>
         <div className="form-element">
           <input
             type="text"
@@ -33,7 +35,14 @@ const ConfirmEmail = ({ email }) => {
           <button type="submit">Confirm</button>
         </div>
       </form>
-    </div>
+      <div id="right-side-form">
+        <h1 id="welcome-back">Almost there!</h1>
+        <hr id="line" />
+        <h2 id="welcome-back-subtext">
+          Just confirm your email to get started!
+        </h2>
+      </div>
+    </>
   );
 };
 
