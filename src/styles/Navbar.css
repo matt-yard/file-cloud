@@ -1,0 +1,46 @@
+nav {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #5138ed;
+  position: fixed;
+  top: 0;
+  background-color: white;
+}
+
+nav a {
+  color: black;
+  text-decoration: none;
+  margin: 80px;
+}
+
+#right-nav {
+  display: flex;
+  align-items: center;
+}
+
+#right-nav a {
+  margin: 20px;
+}
+
+#right-nav button {
+  background-color: #5138ed;
+  color: white;
+  border: none;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 20px;
+}
+
+#logo-left {
+  font-weight: 200;
+  font-size: 1.6rem;
+}
+
+#logo-right {
+  font-weight: 600;
+  color: #5138ed;
+  font-size: 1.6rem;
+}

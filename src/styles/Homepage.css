@@ -1,0 +1,37 @@
+#home-container {
+  display: flex;
+  margin-top: 60px;
+  flex-direction: column;
+  align-items: center;
+}
+
+#home-title {
+  font-size: 3rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+}
+
+#home-subtitle {
+  font-size: 3rem;
+  font-weight: 600;
+  text-align: center;
+  color: #5138ed;
+  margin: 0;
+}
+
+#home-p {
+  text-align: center;
+  width: 40%;
+  line-height: 25px;
+  margin: 30px;
+}
+
+#home-container button {
+  height: 50px;
+  width: 300px;
+  background-color: #5138ed;
+  border: none;
+  border-radius: 25px;
+  color: white;
+}

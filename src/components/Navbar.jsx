@@ -1,6 +1,7 @@
 import React from "react";
 import { Auth } from "aws-amplify";
 import { Link, useNavigate } from "react-router-dom";
+import "../styles/Navbar.css";
 
 const Navbar = ({ setCurrentUser, currentUser }) => {
   const navigate = useNavigate();
@@ -18,16 +19,19 @@ const Navbar = ({ setCurrentUser, currentUser }) => {
 
   return (
     <nav>
-      <Link to="/">Home</Link>
+      <Link to="/">
+        <span id="logo-left">file</span>
+        <span id="logo-right">cloud</span>
+      </Link>
       {currentUser ? (
         <button onClick={handleSignOut}>Logout</button>
       ) : (
-        <>
+        <div id="right-nav">
           <Link to="/login">Login</Link>
           <Link to="/signup">
             <button>Sign Up</button>
           </Link>
-        </>
+        </div>
       )}
     </nav>
   );

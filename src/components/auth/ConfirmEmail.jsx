@@ -19,16 +19,19 @@ const ConfirmEmail = ({ email }) => {
   };
 
   return (
-    <div>
+    <div id="confirm-container">
       <h2>Please enter the code sent to your email.</h2>
       <p>{errorMessage}</p>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          onChange={(e) => setAuthCode(e.target.value)}
-          value={authCode}
-        />
-        <button type="submit">Confirm</button>
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <div className="form-element">
+          <input
+            type="text"
+            placeholder="123456"
+            onChange={(e) => setAuthCode(e.target.value)}
+            value={authCode}
+          />
+          <button type="submit">Confirm</button>
+        </div>
       </form>
     </div>
   );
