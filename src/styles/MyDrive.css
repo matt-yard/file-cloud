@@ -1,3 +1,29 @@
 #user-drive {
   margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.file-icon {
+  height: 100px;
+  width: 100px;
+}
+
+#file-container {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
 }

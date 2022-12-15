@@ -1,0 +1,9 @@
+#side-nav {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  max-width: 700px;
+  min-width: 500px;
+  align-items: flex-start;
+  padding-left: 100px;
+}

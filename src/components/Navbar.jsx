@@ -17,7 +17,7 @@ const Navbar = ({ setCurrentUser, currentUser }) => {
   };
 
   return (
-    <nav>
+    <nav id="main-nav">
       <Link to="/">
         <span id="logo-left">file</span>
         <span id="logo-right">cloud</span>

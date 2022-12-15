@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/Homepage.css";
 import { useOutletContext } from "react-router-dom";
-import MyDrive from "./MyDrive";
+import MyDrive from "./drive/MyDrive";
 
 const Homepage = () => {
   const { currentUser } = useOutletContext();

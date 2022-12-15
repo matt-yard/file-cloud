@@ -68,6 +68,14 @@
   width: 50%;
 }
 
+#welcome-back {
+  background-color: transparent;
+}
+
+#welcome-back-subtext {
+  background-color: transparent;
+}
+
 #confirm-container {
   width: 200%;
   align-self: start;
@@ -78,6 +86,12 @@
   width: 70%;
   height: auto;
   top: 30%;
+  background-color: transparent;
+}
+
+#login-subtext,
+#sub-text-container {
+  background-color: transparent;
 }
 
 @media only screen and (max-width: 930px) {

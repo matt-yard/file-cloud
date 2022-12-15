@@ -1,4 +1,4 @@
-nav {
+#main-nav {
   height: 60px;
   width: 100%;
   display: flex;
@@ -7,10 +7,9 @@ nav {
   color: #5138ed;
   position: fixed;
   top: 0;
-  background-color: white;
 }
 
-nav a {
+#main-nav a {
   color: black;
   text-decoration: none;
   margin: 80px;
@@ -19,13 +18,14 @@ nav a {
 #right-nav {
   display: flex;
   align-items: center;
+  background-color: transparent;
 }
 
 #right-nav a {
   margin: 20px;
 }
 
-#right-nav button {
+#main-nav button {
   background-color: #5138ed;
   color: white;
   border: none;
@@ -33,7 +33,9 @@ nav a {
   padding: 0 20px;
   border-radius: 20px;
 }
-
+#main-nav a {
+  color: white;
+}
 #logo-left {
   font-weight: 200;
   font-size: 1.6rem;
