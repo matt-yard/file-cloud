@@ -57,3 +57,57 @@
 .file-subtext {
   font-weight: 200;
 }
+
+.tooltip-wrapper {
+  width: 0;
+  position: absolute;
+  top: 0;
+  left: 270px;
+}
+
+.container-with-tooltip {
+  position: relative;
+}
+
+.tooltip-tip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  border-radius: 4px;
+  transform: translateX(-50%);
+  padding: 6px;
+  color: white;
+  background: #0a0a0a;
+  font-size: 14px;
+  line-height: 1;
+  z-index: 100;
+  white-space: nowrap;
+  top: 47px;
+  left: -5px;
+  width: 150px;
+  padding: 10px;
+  margin: 0;
+}
+
+.tooltip-option {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  font-weight: 500;
+  padding-left: 10px;
+}
+
+.tooltip-option a {
+  color: white;
+  text-decoration: none;
+}
+
+.tooltip-option:hover {
+  background-color: #242425;
+  border-bottom: 4px;
+  cursor: pointer;
+}

@@ -5,18 +5,23 @@ import {
   FaFile,
   FaSignOutAlt,
 } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { Auth } from "aws-amplify";
 
 import "../../styles/SideNav.css";
 
 const SideNav = ({ setCurrentUser }) => {
   const navigate = useNavigate();
+  const { setFileSystem, setTotalStorage, setStorageBreakdown } =
+    useOutletContext();
 
   const handleSignOut = async (e) => {
     try {
       await Auth.signOut();
       setCurrentUser(null);
+      setTotalStorage(0);
+      setFileSystem({});
+      setStorageBreakdown({});
       navigate("/login");
     } catch (error) {
       console.error(error);
