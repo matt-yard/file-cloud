@@ -13,6 +13,9 @@ export const processStorageList = (files) => {
           ? { ...target[element], isFolder: true }
           : {};
       add(elements.join("/"), target[element], item);
+    } else {
+      let fileType = item.key.split(".")[1];
+      target[element] = { ...target[element], fileType };
     }
   };
   files.forEach((item) => add(item.key, fileSystem, item));
