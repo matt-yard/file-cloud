@@ -1,0 +1,13 @@
+{
+  "resourceName": "s3a490de65",
+  "policyUUID": "a490de65",
+  "bucketName": "filecloudbeec685f75f148f9b8db05890fdd47db",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "groupAccess": {}
+}

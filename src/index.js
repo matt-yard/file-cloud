@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./styles/index.css";
 import App from "./components/App";
 import Homepage from "./components/Homepage";
-import { Amplify } from "aws-amplify";
+import { Amplify, Storage } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -11,6 +11,7 @@ import SignUp from "./components/auth/SignUp";
 import Login from "./components/auth/Login";
 
 Amplify.configure(awsconfig);
+Storage.configure({ level: "private" });
 
 const router = createBrowserRouter([
   {
