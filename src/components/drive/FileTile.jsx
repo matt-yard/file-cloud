@@ -51,17 +51,16 @@ const FileTile = ({ currentFile, openFolder, name }) => {
     setShowTooltip(false);
     try {
       let fileNameToDelete = currentFile.__data.key;
-      console.log("deleting this file: ", fileNameToDelete);
+
       const response = await Storage.remove(fileNameToDelete);
-      console.log("delete response", response);
+
       const result = await Storage.vault.list("");
-      if (result.length) {
-        const { parsedFiles, totalStorageUsed, storageBreakdown } =
-          processStorageList(result);
-        setFileSystem(parsedFiles);
-        setTotalStorage(totalStorageUsed);
-        setStorageBreakdown(storageBreakdown);
-      }
+
+      const { parsedFiles, totalStorageUsed, storageBreakdown } =
+        processStorageList(result);
+      setFileSystem(parsedFiles);
+      setTotalStorage(totalStorageUsed);
+      setStorageBreakdown(storageBreakdown);
     } catch (error) {
       console.log(error);
     }

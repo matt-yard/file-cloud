@@ -39,7 +39,6 @@ const FileUploader = ({ setIsUploading, setUploadProgress }) => {
           {
             progressCallback(progress) {
               setUploadProgress((progress.loaded / progress.total) * 100);
-              console.log(`Uploaded: ${progress.loaded} / ${progress.total}`);
             },
           }
         );
