@@ -16,7 +16,8 @@ export const processStorageList = (files) => {
           : {};
       add(elements.join("/"), target[element], item);
     } else {
-      let fileType = item.key.split(".")[1];
+      const splitTypes = item.key.split(".");
+      let fileType = splitTypes[splitTypes.length - 1];
       target[element] = { ...target[element], fileType };
       totalStorageUsed += item.size;
       if (storageBreakdown[fileType]) {

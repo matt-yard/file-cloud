@@ -1,22 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../../styles/MyDrive.css";
 import { Storage } from "aws-amplify";
 import { processStorageList } from "../../util";
 import SideNav from "./SideNav";
 import StorageInfo from "./StorageInfo";
-import { FaCloudUploadAlt, FaBell } from "react-icons/fa";
 import { RiSettings5Fill } from "react-icons/ri";
 import { IoPerson } from "react-icons/io5";
 import FileTile from "./FileTile";
 import { useOutletContext } from "react-router-dom";
+import { FaFolder, FaBell } from "react-icons/fa";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { BsFillPlusCircleFill } from "react-icons/bs";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import FileUploader from "./FileUploader";
 
 const MyDrive = () => {
   const [fileSystem, setFileSystem] = useState({});
-  const [newFolderName, setNewFolderName] = useState("");
+  const [newFolderName, setNewFolderName] = useState("New Folder");
   const [currentFilePath, setCurrentFilePath] = useState("");
   const [totalStorage, setTotalStorage] = useState(0);
   const [storageBreakdown, setStorageBreakdown] = useState({});
   const { currentUser, setCurrentUser } = useOutletContext();
+  const [creatingFolder, setCreatingFolder] = useState(false);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const fetchMyFiles = async () => {
@@ -38,33 +45,15 @@ const MyDrive = () => {
     fetchMyFiles();
   }, []);
 
-  const handleChange = async (e) => {
-    const file = e.target.files[0];
-    try {
-      await Storage.put(
-        `${currentFilePath ? currentFilePath + "/" : ""}${file.name}`,
-        file,
-        {
-          progressCallback(progress) {
-            console.log(`Uploaded: ${progress.loaded} / ${progress.total}`);
-          },
-        }
-      );
-
-      const result = await Storage.vault.list("");
-      if (result.length) {
-        const { parsedFiles, totalStorageUsed, storageBreakdown } =
-          processStorageList(result);
-        setFileSystem(parsedFiles);
-        setTotalStorage(totalStorageUsed);
-        setStorageBreakdown(storageBreakdown);
-      }
-    } catch (error) {
-      console.log(error);
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
     }
-  };
+  }, [creatingFolder]);
 
-  const createFolder = async () => {
+  const createFolder = async (e) => {
+    e.preventDefault();
     try {
       if (newFolderName) {
         try {
@@ -78,6 +67,17 @@ const MyDrive = () => {
             setFileSystem(parsedFiles);
             setTotalStorage(totalStorageUsed);
             setStorageBreakdown(storageBreakdown);
+            setCreatingFolder(false);
+            toast.success("Folder Created!", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
           }
         } catch (error) {
           console.log(error);
@@ -99,14 +99,19 @@ const MyDrive = () => {
 
   return (
     <div id="user-drive">
+      <ToastContainer />
       <div className="flex-row">
         <SideNav currentUser={currentUser} setCurrentUser={setCurrentUser} />
         <div className="flex-column">
           <nav id="top-nav">
             <div>
               <div className="top-nav-item">
-                <FaCloudUploadAlt size="30px" color="#583da1" />
-                <p>Add File</p>
+                <FileUploader
+                  currentFilePath={currentFilePath}
+                  setFileSystem={setFileSystem}
+                  setTotalStorage={setTotalStorage}
+                  setStorageBreakdown={setStorageBreakdown}
+                />
               </div>
             </div>
             <div className="top-nav-item">
@@ -138,6 +143,40 @@ const MyDrive = () => {
                     />
                   );
                 })}
+                {creatingFolder ? (
+                  <div className="folder-container">
+                    <div className="folder-item">
+                      <div className="file-item-top">
+                        <FaFolder type="folder" size="50px" color="#583da1" />
+                        {/* <FaFolder size="50px" color="#583da1" /> */}
+                        <BsThreeDotsVertical size="25px" color="gray" />
+                      </div>
+                      <div className="folder-text-container">
+                        <form onSubmit={createFolder}>
+                          <input
+                            type="text"
+                            ref={inputRef}
+                            value={newFolderName}
+                            onChange={(e) => setNewFolderName(e.target.value)}
+                          />
+                          <button onClick={() => setCreatingFolder(false)}>
+                            Cancel
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    id="new-folder"
+                    onClick={(e) => {
+                      setCreatingFolder(true);
+                    }}
+                  >
+                    <BsFillPlusCircleFill size="80px" color="#52d852" />
+                    <p>New Folder</p>
+                  </div>
+                )}
               </div>
             </div>
             <StorageInfo
