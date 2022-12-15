@@ -1,6 +1,7 @@
 export const processStorageList = (files) => {
   const fileSystem = {};
   let totalStorageUsed = 0;
+  const storageBreakdown = {};
 
   const add = (source, target, item) => {
     const elements = source.split("/");
@@ -18,12 +19,23 @@ export const processStorageList = (files) => {
       let fileType = item.key.split(".")[1];
       target[element] = { ...target[element], fileType };
       totalStorageUsed += item.size;
+      if (storageBreakdown[fileType]) {
+        storageBreakdown[fileType] += item.size;
+      } else {
+        storageBreakdown[fileType] = item.size;
+      }
     }
   };
   files.forEach((item) => add(item.key, fileSystem, item));
 
+  for (const key in storageBreakdown) {
+    storageBreakdown[key] = (storageBreakdown[key] * 0.000001).toFixed(2);
+  }
+  console.log("The storage breakdown by filetype: ", storageBreakdown);
+
   return {
     parsedFiles: fileSystem,
     totalStorageUsed: (totalStorageUsed * 0.000001).toFixed(2),
+    storageBreakdown,
   };
 };

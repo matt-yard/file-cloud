@@ -2,8 +2,8 @@
 
 * {
   box-sizing: border-box;
-  background-color: #121212;
-  color: white;
+  /* background-color: #121212;
+  color: white; */
 }
 
 body {
@@ -15,10 +15,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
   width: 100%;
+  padding: 0;
 }
 
 html {
-  height: calc(100% - 60px);
+  height: 100%;
 }
 
 #root {

@@ -1,29 +1,97 @@
 #user-drive {
-  margin-top: 70px;
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: center;
+  height: 100%;
 }
-
+/*
 .file-icon {
   height: 100px;
   width: 100px;
+  background-color: transparent;
 }
+
+.file-item {
+  height: 120px;
+  width: 120px;
+  background-color: transparent;
+} */
+
+/* .file-item p {
+  background-color: transparent;
+} */
 
 #file-container {
   display: flex;
-  flex-direction: row;
-  gap: 50px;
-  width: 100%;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-direction: column;
+  gap: 100px;
+  width: 90%;
+  /* flex-wrap: wrap; */
+  /* align-items: center; */
+  height: 100%;
   /* justify-content: center; */
+  background-color: #e0e0e0;
+  padding: 20px 40px;
+  /* border-radius: 20px; */
+}
+
+#file-container-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+#file-container-header {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
 }
 
 .flex-row {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  /* align-items: center; */
   width: 100%;
+  height: 100%;
+  justify-content: center;
+  /* gap: 20px; */
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#top-nav {
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  padding-left: 50px;
+  padding-right: 50px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.top-nav-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.icon-container {
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

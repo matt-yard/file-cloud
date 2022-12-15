@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import ConfirmEmail from "./ConfirmEmail";
 import cloudImg from "../../images/login-page-img.png";
 
