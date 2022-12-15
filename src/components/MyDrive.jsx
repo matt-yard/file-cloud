@@ -14,7 +14,6 @@ const MyDrive = () => {
         const result = await Storage.vault.list("");
         if (result.length) {
           const parsedFiles = processStorageList(result);
-          console.log(parsedFiles);
           setFileSystem(parsedFiles);
         }
       } catch (error) {

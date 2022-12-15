@@ -6,8 +6,6 @@ import MyDrive from "./MyDrive";
 
 const Homepage = () => {
   const { currentUser } = useOutletContext();
-
-  console.log("this is the current user from homepage", currentUser);
   return (
     <>
       {currentUser ? (

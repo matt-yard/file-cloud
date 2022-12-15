@@ -5,7 +5,6 @@ import "../styles/Navbar.css";
 
 const Navbar = ({ setCurrentUser, currentUser }) => {
   const navigate = useNavigate();
-  console.log(currentUser);
 
   const handleSignOut = async (e) => {
     try {
