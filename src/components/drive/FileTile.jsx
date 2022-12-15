@@ -6,6 +6,7 @@ import { FaFolder } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { VscFilePdf } from "react-icons/vsc";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
+import { IoDocumentTextOutline } from "react-icons/io5";
 import "../../styles/FileTile.css";
 
 const FileIcon = ({ type, size, color }) => {
@@ -15,6 +16,10 @@ const FileIcon = ({ type, size, color }) => {
     jpeg: MdOutlinePhotoSizeSelectActual,
     png: MdOutlinePhotoSizeSelectActual,
     jpg: MdOutlinePhotoSizeSelectActual,
+    pages: IoDocumentTextOutline,
+    doc: IoDocumentTextOutline,
+    docx: IoDocumentTextOutline,
+    txt: IoDocumentTextOutline,
   };
 
   const IconComponent = icons[type];

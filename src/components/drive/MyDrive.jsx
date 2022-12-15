@@ -16,34 +16,21 @@ import "react-toastify/dist/ReactToastify.css";
 import FileUploader from "./FileUploader";
 
 const MyDrive = () => {
-  const [fileSystem, setFileSystem] = useState({});
+  const {
+    fileSystem,
+    setFileSystem,
+    totalStorage,
+    setTotalStorage,
+    storageBreakdown,
+    setStorageBreakdown,
+  } = useOutletContext();
   const [newFolderName, setNewFolderName] = useState("New Folder");
   const [currentFilePath, setCurrentFilePath] = useState("");
-  const [totalStorage, setTotalStorage] = useState(0);
-  const [storageBreakdown, setStorageBreakdown] = useState({});
   const { currentUser, setCurrentUser } = useOutletContext();
   const [creatingFolder, setCreatingFolder] = useState(false);
   const inputRef = useRef(null);
 
-  useEffect(() => {
-    const fetchMyFiles = async () => {
-      try {
-        const result = await Storage.vault.list("");
-        if (result.length) {
-          const { parsedFiles, totalStorageUsed, storageBreakdown } =
-            processStorageList(result);
-          console.log(parsedFiles);
-          setFileSystem(parsedFiles);
-          setTotalStorage(totalStorageUsed);
-          console.log("stroage breakdown in MyDrive, ", storageBreakdown);
-          setStorageBreakdown(storageBreakdown);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchMyFiles();
-  }, []);
+  useEffect(() => {});
 
   useEffect(() => {
     if (inputRef.current) {
@@ -58,7 +45,7 @@ const MyDrive = () => {
       if (newFolderName) {
         try {
           await Storage.put(
-            `${currentFilePath ? currentFilePath + "/" : ""}${newFolderName}/`
+            `${currentFilePath ? currentFilePath : ""}${newFolderName}/`
           );
           const result = await Storage.vault.list("");
           if (result.length) {
@@ -90,7 +77,6 @@ const MyDrive = () => {
 
   const openFolder = (folder, folderName) => {
     const newFolderContents = { ...folder };
-    console.log("new folder inside openFolder", newFolderContents);
     delete newFolderContents.__data;
     delete newFolderContents.isFolder;
     setFileSystem(newFolderContents);
@@ -106,12 +92,7 @@ const MyDrive = () => {
           <nav id="top-nav">
             <div>
               <div className="top-nav-item">
-                <FileUploader
-                  currentFilePath={currentFilePath}
-                  setFileSystem={setFileSystem}
-                  setTotalStorage={setTotalStorage}
-                  setStorageBreakdown={setStorageBreakdown}
-                />
+                <FileUploader />
               </div>
             </div>
             <div className="top-nav-item">
@@ -159,6 +140,7 @@ const MyDrive = () => {
                             value={newFolderName}
                             onChange={(e) => setNewFolderName(e.target.value)}
                           />
+                          <button type="submit">Create</button>
                           <button onClick={() => setCreatingFolder(false)}>
                             Cancel
                           </button>

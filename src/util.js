@@ -32,7 +32,6 @@ export const processStorageList = (files) => {
   for (const key in storageBreakdown) {
     storageBreakdown[key] = (storageBreakdown[key] * 0.000001).toFixed(2);
   }
-  console.log("The storage breakdown by filetype: ", storageBreakdown);
 
   return {
     parsedFiles: fileSystem,

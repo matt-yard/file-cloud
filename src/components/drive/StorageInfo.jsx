@@ -2,8 +2,6 @@ import React from "react";
 import "../../styles/StorageInfo.css";
 
 const StorageInfo = ({ storage: { totalStorage, storageBreakdown } }) => {
-  console.log("Storage info rendering!!!");
-  console.log("storage breakdown inside StorageInfo", storageBreakdown);
   return (
     <div id="storage-info-container">
       <h1>Storage Breakdown</h1>
