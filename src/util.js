@@ -1,5 +1,6 @@
 export const processStorageList = (files) => {
   const fileSystem = {};
+  let totalStorageUsed = 0;
 
   const add = (source, target, item) => {
     const elements = source.split("/");
@@ -16,8 +17,13 @@ export const processStorageList = (files) => {
     } else {
       let fileType = item.key.split(".")[1];
       target[element] = { ...target[element], fileType };
+      totalStorageUsed += item.size;
     }
   };
   files.forEach((item) => add(item.key, fileSystem, item));
-  return fileSystem;
+
+  return {
+    parsedFiles: fileSystem,
+    totalStorageUsed: (totalStorageUsed * 0.000001).toFixed(2),
+  };
 };

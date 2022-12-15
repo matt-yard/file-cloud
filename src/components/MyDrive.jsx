@@ -7,14 +7,16 @@ const MyDrive = () => {
   const [fileSystem, setFileSystem] = useState([]);
   const [newFolderName, setNewFolderName] = useState("");
   const [currentFilePath, setCurrentFilePath] = useState("/");
+  const [totalStorage, setTotalStorage] = useState(0);
 
   useEffect(() => {
     const fetchMyFiles = async () => {
       try {
         const result = await Storage.vault.list("");
         if (result.length) {
-          const parsedFiles = processStorageList(result);
+          const { parsedFiles, totalStorageUsed } = processStorageList(result);
           setFileSystem(parsedFiles);
+          setTotalStorage(totalStorageUsed);
         }
       } catch (error) {
         console.log(error);
@@ -77,6 +79,7 @@ const MyDrive = () => {
           }
         })}
       </div>
+      <p>Storage: {totalStorage} MB / 100 MB</p>
     </div>
   );
 };
