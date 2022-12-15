@@ -14,6 +14,8 @@ import { BsFillPlusCircleFill } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FileUploader from "./FileUploader";
+import { FaCloudUploadAlt } from "react-icons/fa";
+import { AiFillCheckCircle } from "react-icons/ai";
 
 const MyDrive = () => {
   const {
@@ -26,6 +28,8 @@ const MyDrive = () => {
   } = useOutletContext();
   const [newFolderName, setNewFolderName] = useState("New Folder");
   const [currentFilePath, setCurrentFilePath] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const { currentUser, setCurrentUser } = useOutletContext();
   const [creatingFolder, setCreatingFolder] = useState(false);
   const inputRef = useRef(null);
@@ -92,7 +96,11 @@ const MyDrive = () => {
           <nav id="top-nav">
             <div>
               <div className="top-nav-item">
-                <FileUploader />
+                <FileUploader
+                  isUploading={isUploading}
+                  setIsUploading={setIsUploading}
+                  setUploadProgress={setUploadProgress}
+                />
               </div>
             </div>
             <div className="top-nav-item">
@@ -160,6 +168,20 @@ const MyDrive = () => {
                   </div>
                 )}
               </div>
+              {isUploading && (
+                <div id="upload-status">
+                  {Math.round(uploadProgress >= 100) ? (
+                    <AiFillCheckCircle size="50px" color="#52d852" />
+                  ) : (
+                    <FaCloudUploadAlt size="50px" color="#583da1" />
+                  )}
+
+                  <div id="upload-status-text">
+                    <p>Uploading...</p>
+                    <p>{Math.round(uploadProgress)}%</p>
+                  </div>
+                </div>
+              )}
             </div>
             <StorageInfo
               storage={{

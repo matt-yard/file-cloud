@@ -5,7 +5,7 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const FileUploader = () => {
+const FileUploader = ({ setIsUploading, setUploadProgress }) => {
   const {
     currentFilePath,
     setFileSystem,
@@ -32,16 +32,20 @@ const FileUploader = () => {
       });
     } else {
       try {
+        setIsUploading(true);
         await Storage.put(
           `${currentFilePath ? currentFilePath : ""}${file.name}`,
           file,
           {
             progressCallback(progress) {
+              setUploadProgress((progress.loaded / progress.total) * 100);
               console.log(`Uploaded: ${progress.loaded} / ${progress.total}`);
             },
           }
         );
-
+        setTimeout(() => {
+          setIsUploading(false);
+        }, 5000);
         const result = await Storage.vault.list("");
         if (result.length) {
           const { parsedFiles, totalStorageUsed, storageBreakdown } =
@@ -51,6 +55,7 @@ const FileUploader = () => {
           setStorageBreakdown(storageBreakdown);
         }
       } catch (error) {
+        setIsUploading(false);
         console.log(error);
       }
     }
@@ -69,7 +74,7 @@ const FileUploader = () => {
       />
       <div onClick={handleClick} id="file-uploader">
         <FaCloudUploadAlt size="30px" color="#583da1" />
-        <p>Add File</p>
+        <p>Upload File</p>
       </div>
     </>
   );

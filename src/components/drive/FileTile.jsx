@@ -7,6 +7,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { VscFilePdf } from "react-icons/vsc";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import { BiMoviePlay } from "react-icons/bi";
 import "../../styles/FileTile.css";
 
 const FileIcon = ({ type, size, color }) => {
@@ -20,6 +21,8 @@ const FileIcon = ({ type, size, color }) => {
     doc: IoDocumentTextOutline,
     docx: IoDocumentTextOutline,
     txt: IoDocumentTextOutline,
+    mov: BiMoviePlay,
+    mp4: BiMoviePlay,
   };
 
   const IconComponent = icons[type];
@@ -64,7 +67,11 @@ const FileTile = ({ currentFile, openFolder, name }) => {
             {currentFile.__data.lastModified.toLocaleString()}
           </p>
         </div>
-        <p>{currentFile.__data.size / 1000} KB</p>
+        <p>
+          {currentFile.__data.size / 1000 > 1000
+            ? `${(currentFile.__data.size / 1000000).toFixed(2)} MB`
+            : `${(currentFile.__data.size / 1000).toFixed(2)} KB`}
+        </p>
       </div>
     );
   }
