@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../../styles/MyDrive.css";
 import { Storage } from "aws-amplify";
-import {
-  processStorageList,
-  getFolderContents,
-  deepClone,
-  navigateToFolder,
-} from "../../util";
+import { processStorageList, deepClone, navigateToFolder } from "../../util";
 import SideNav from "./SideNav";
 import StorageInfo from "./StorageInfo";
 import { RiSettings5Fill } from "react-icons/ri";
@@ -45,6 +40,14 @@ const MyDrive = () => {
     const currentFolder = navigateToFolder(currentFilePath, nfs);
     setCurrentFileSystem(deepClone(currentFolder));
   }, [fileSystem]);
+
+  useEffect(() => {
+    const newFileSystem = navigateToFolder(
+      currentFilePath,
+      deepClone(fileSystem)
+    );
+    setCurrentFileSystem(newFileSystem);
+  }, [currentFilePath]);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -91,12 +94,21 @@ const MyDrive = () => {
   };
 
   const openFolder = (folder, folderName) => {
-    const newFolderContents = { ...folder };
-    console.log(currentFileSystem);
-    let newFileSystem = getFolderContents(folderName, currentFileSystem);
-    console.log("newFileSystem", newFileSystem);
-    setCurrentFileSystem(newFileSystem);
-    setCurrentFilePath(newFolderContents.__data.key);
+    // const newFolderContents = { ...folder };
+    // console.log(currentFileSystem);
+    // let newFileSystem = getFolderContents(folderName, currentFileSystem);
+    // console.log("newFileSystem", newFileSystem);
+    // setCurrentFileSystem(newFileSystem);
+    setCurrentFilePath(folder.__data.key);
+  };
+
+  const handleGoBack = () => {
+    const splitPath = currentFilePath.split("/");
+    let newPath = splitPath.slice(0, splitPath.length - 2).join("/");
+    if (newPath) {
+      newPath += "/";
+    }
+    setCurrentFilePath(newPath);
   };
 
   return (
@@ -133,6 +145,7 @@ const MyDrive = () => {
               <div id="file-container-header">
                 <h1>My Cloud</h1>
                 <p>{currentFilePath}</p>
+                <button onClick={handleGoBack}>Back</button>
               </div>
               <div id="file-container-row">
                 {Object.keys(currentFileSystem).map((key) => {

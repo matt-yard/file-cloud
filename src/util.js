@@ -64,13 +64,13 @@ export const deepClone = (obj) => {
   return clone;
 };
 
-export const getFolderContents = (folderName, fileSystem) => {
-  let newFileSystem = deepClone(fileSystem)[folderName];
-  delete newFileSystem.__data;
-  delete newFileSystem.isFolder;
+// export const getFolderContents = (folderName, fileSystem) => {
+//   let newFileSystem = deepClone(fileSystem)[folderName];
+//   delete newFileSystem.__data;
+//   delete newFileSystem.isFolder;
 
-  return newFileSystem;
-};
+//   return newFileSystem;
+// };
 
 export const navigateToFolder = (path, fileSystem) => {
   let newFileSystem = deepClone(fileSystem);
