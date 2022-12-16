@@ -34,8 +34,6 @@ const MyDrive = () => {
   const [creatingFolder, setCreatingFolder] = useState(false);
   const inputRef = useRef(null);
 
-  useEffect(() => {});
-
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();

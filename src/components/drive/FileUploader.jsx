@@ -41,17 +41,17 @@ const FileUploader = ({
         });
         setTimeout(() => {
           setIsUploading(false);
-        }, 5000);
-        const result = await Storage.vault.list(currentFilePath);
+        }, 3000);
+
+        const result = await Storage.vault.list("");
         const { parsedFiles, totalStorageUsed, storageBreakdown } =
           processStorageList(result);
 
-        console.log("after upload: ", parsedFiles);
-        let [currentFolderName] = Object.keys(parsedFiles);
-        const newFileSystem = parsedFiles[currentFolderName];
-        delete newFileSystem.__data;
-        delete newFileSystem.isFolder;
-        setFileSystem(newFileSystem);
+        // let [currentFolderName] = Object.keys(parsedFiles);
+        // const newFileSystem = parsedFiles[currentFolderName];
+        // delete newFileSystem.__data;
+        // delete newFileSystem.isFolder;
+        setFileSystem(parsedFiles);
         setTotalStorage(totalStorageUsed);
         setStorageBreakdown(storageBreakdown);
       } catch (error) {

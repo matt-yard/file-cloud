@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { FaFolder } from "react-icons/fa";
+import { FaFolder, FaFileAudio } from "react-icons/fa";
 import { BsThreeDotsVertical, BsFillTrashFill } from "react-icons/bs";
 import { VscFilePdf } from "react-icons/vsc";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { BiMoviePlay, BiDownload } from "react-icons/bi";
 import { Storage } from "aws-amplify";
-
+import { AiOutlineFile } from "react-icons/ai";
 import "../../styles/FileTile.css";
 import { useOutletContext } from "react-router-dom";
 import { processStorageList } from "../../util";
@@ -25,9 +25,11 @@ const FileIcon = ({ type, size, color }) => {
     txt: IoDocumentTextOutline,
     mov: BiMoviePlay,
     mp4: BiMoviePlay,
+    mp3: FaFileAudio,
+    default: AiOutlineFile,
   };
 
-  const IconComponent = icons[type];
+  const IconComponent = icons[type] || icons.default;
 
   return <IconComponent size={size} color={color} />;
 };
@@ -55,15 +57,23 @@ const FileTile = ({ currentFile, openFolder, name }) => {
       const response = await Storage.remove(fileNameToDelete);
 
       const result = await Storage.vault.list("");
-
+      console.log("result after delete", result);
       const { parsedFiles, totalStorageUsed, storageBreakdown } =
         processStorageList(result);
       console.log("parsed files after delete", parsedFiles);
-      const [currentFolderName] = Object.keys(parsedFiles);
-      const newFileSystem = parsedFiles[currentFolderName];
-      delete newFileSystem.__data;
-      delete newFileSystem.isFolder;
-      setFileSystem(newFileSystem);
+      // const [currentFolderName] = Object.keys(parsedFiles);
+      // const newFileSystem = parsedFiles[currentFolderName];
+      // delete newFileSystem.__data;
+      // delete newFileSystem.isFolder;
+
+      // if (Object.keys(newFileSystem).length) {
+      //   setFileSystem(newFileSystem);
+      // } else {
+      //   setFileSystem(parsedFiles);
+      // }
+
+      setFileSystem(parsedFiles);
+
       setTotalStorage(totalStorageUsed);
       setStorageBreakdown(storageBreakdown);
     } catch (error) {
@@ -150,13 +160,13 @@ const FileTile = ({ currentFile, openFolder, name }) => {
 
             <p className="file-name">{name}</p>
             <p className="file-subtext">
-              {currentFile.__data.lastModified.toLocaleString()}
+              {currentFile?.__data?.lastModified.toLocaleString()}
             </p>
           </div>
           <p>
-            {currentFile.__data.size / 1000 > 1000
-              ? `${(currentFile.__data.size / 1000000).toFixed(2)} MB`
-              : `${(currentFile.__data.size / 1000).toFixed(2)} KB`}
+            {currentFile?.__data?.size / 1000 > 1000
+              ? `${(currentFile?.__data?.size / 1000000).toFixed(2)} MB`
+              : `${(currentFile?.__data?.size / 1000).toFixed(2)} KB`}
           </p>
         </div>
         {showTooltip && (

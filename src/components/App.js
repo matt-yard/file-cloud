@@ -16,13 +16,12 @@ function App() {
     const fetchMyFiles = async () => {
       try {
         const result = await Storage.vault.list("");
-        if (result.length) {
-          const { parsedFiles, totalStorageUsed, storageBreakdown } =
-            processStorageList(result);
-          setFileSystem(parsedFiles);
-          setTotalStorage(totalStorageUsed);
-          setStorageBreakdown(storageBreakdown);
-        }
+
+        const { parsedFiles, totalStorageUsed, storageBreakdown } =
+          processStorageList(result);
+        setFileSystem(parsedFiles);
+        setTotalStorage(totalStorageUsed);
+        setStorageBreakdown(storageBreakdown);
       } catch (error) {
         console.log(error);
       }
