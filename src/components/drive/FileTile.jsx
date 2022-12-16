@@ -61,16 +61,6 @@ const FileTile = ({ currentFile, openFolder, name }) => {
       const { parsedFiles, totalStorageUsed, storageBreakdown } =
         processStorageList(result);
       console.log("parsed files after delete", parsedFiles);
-      // const [currentFolderName] = Object.keys(parsedFiles);
-      // const newFileSystem = parsedFiles[currentFolderName];
-      // delete newFileSystem.__data;
-      // delete newFileSystem.isFolder;
-
-      // if (Object.keys(newFileSystem).length) {
-      //   setFileSystem(newFileSystem);
-      // } else {
-      //   setFileSystem(parsedFiles);
-      // }
 
       setFileSystem(parsedFiles);
 
@@ -113,9 +103,7 @@ const FileTile = ({ currentFile, openFolder, name }) => {
             </div>
             <div className="folder-text-container">
               <p className="file-name">{name}</p>
-              <p className="file-subtext">
-                {currentFile.__data.lastModified.toLocaleString()}
-              </p>
+              <p className="file-subtext">{currentFile.__data.lastModified}</p>
             </div>
           </div>
         </div>

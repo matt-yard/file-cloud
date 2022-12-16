@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../../styles/MyDrive.css";
 import { Storage } from "aws-amplify";
-import { processStorageList } from "../../util";
+import {
+  processStorageList,
+  getFolderContents,
+  deepClone,
+  navigateToFolder,
+} from "../../util";
 import SideNav from "./SideNav";
 import StorageInfo from "./StorageInfo";
 import { RiSettings5Fill } from "react-icons/ri";
@@ -32,7 +37,14 @@ const MyDrive = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const { currentUser, setCurrentUser } = useOutletContext();
   const [creatingFolder, setCreatingFolder] = useState(false);
+  const [currentFileSystem, setCurrentFileSystem] = useState({});
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    const nfs = deepClone(fileSystem);
+    const currentFolder = navigateToFolder(currentFilePath, nfs);
+    setCurrentFileSystem(deepClone(currentFolder));
+  }, [fileSystem]);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -57,6 +69,7 @@ const MyDrive = () => {
             setTotalStorage(totalStorageUsed);
             setStorageBreakdown(storageBreakdown);
             setCreatingFolder(false);
+            setCurrentFilePath("");
             toast.success("Folder Created!", {
               position: "top-right",
               autoClose: 5000,
@@ -79,11 +92,11 @@ const MyDrive = () => {
 
   const openFolder = (folder, folderName) => {
     const newFolderContents = { ...folder };
+    console.log(currentFileSystem);
+    let newFileSystem = getFolderContents(folderName, currentFileSystem);
+    console.log("newFileSystem", newFileSystem);
+    setCurrentFileSystem(newFileSystem);
     setCurrentFilePath(newFolderContents.__data.key);
-    delete newFolderContents.__data;
-    delete newFolderContents.isFolder;
-
-    setFileSystem(newFolderContents);
   };
 
   return (
@@ -119,10 +132,11 @@ const MyDrive = () => {
             <div id="file-container">
               <div id="file-container-header">
                 <h1>My Cloud</h1>
+                <p>{currentFilePath}</p>
               </div>
               <div id="file-container-row">
-                {Object.keys(fileSystem).map((key) => {
-                  const currentFile = fileSystem[key];
+                {Object.keys(currentFileSystem).map((key) => {
+                  const currentFile = currentFileSystem[key];
                   return (
                     <FileTile
                       currentFile={currentFile}

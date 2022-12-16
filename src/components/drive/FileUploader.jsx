@@ -17,7 +17,7 @@ const FileUploader = ({
 
   const handleChange = async (e) => {
     const file = e.target.files[0];
-    console.log("file from uploader", file);
+
     if ((file.size * 0.000001).toFixed(2) + totalStorage > 100) {
       toast.error("Upload Failed: Not Enough Storage", {
         position: "top-right",
@@ -33,7 +33,7 @@ const FileUploader = ({
       try {
         setIsUploading(true);
         const uploadUrl = currentFilePath + file.name;
-        console.log("uploading to", uploadUrl);
+
         await Storage.put(uploadUrl, file, {
           progressCallback(progress) {
             setUploadProgress((progress.loaded / progress.total) * 100);

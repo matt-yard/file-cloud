@@ -1,5 +1,4 @@
 export const processStorageList = (files) => {
-  console.log("files to be parsed", files);
   const fileSystem = {};
   let totalStorageUsed = 0;
   const storageBreakdown = {};
@@ -46,20 +45,44 @@ export const processStorageList = (files) => {
   };
 };
 
-// export const processStorageList = (response) => {
-//   const filesystem = {};
-//   // https://stackoverflow.com/questions/44759750/how-can-i-create-a-nested-object-representation-of-a-folder-structure
-//   const add = (source, target, item) => {
-//     const elements = source.split("/");
-//     const element = elements.shift();
-//     if (!element) return; // blank
-//     target[element] = target[element] || { __data: item }; // element;
-//     if (elements.length) {
-//       target[element] =
-//         typeof target[element] === "object" ? target[element] : {};
-//       add(elements.join("/"), target[element], item);
-//     }
-//   };
-//   response.forEach((item) => add(item.key, filesystem, item));
-//   return { parsedFiles: filesystem };
-// };
+export const deepClone = (obj) => {
+  if (obj === null) return null;
+  let clone = Object.assign({}, obj);
+  Object.keys(clone).forEach(
+    (key) =>
+      (clone[key] =
+        typeof obj[key] === "object"
+          ? obj[key] instanceof Date
+            ? obj[key].toLocaleString()
+            : deepClone(obj[key])
+          : obj[key])
+  );
+  if (Array.isArray(obj)) {
+    clone.length = obj.length;
+    return Array.from(clone);
+  }
+  return clone;
+};
+
+export const getFolderContents = (folderName, fileSystem) => {
+  let newFileSystem = deepClone(fileSystem)[folderName];
+  delete newFileSystem.__data;
+  delete newFileSystem.isFolder;
+
+  return newFileSystem;
+};
+
+export const navigateToFolder = (path, fileSystem) => {
+  let newFileSystem = deepClone(fileSystem);
+  const splitPath = path.split("/");
+
+  splitPath.forEach((folder) => {
+    if (folder) {
+      newFileSystem = newFileSystem[folder];
+      delete newFileSystem.__data;
+      delete newFileSystem.isFolder;
+    }
+  });
+
+  return newFileSystem;
+};
