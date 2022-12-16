@@ -81,10 +81,11 @@ const MyDrive = () => {
 
   const openFolder = (folder, folderName) => {
     const newFolderContents = { ...folder };
+    setCurrentFilePath(newFolderContents.__data.key);
     delete newFolderContents.__data;
     delete newFolderContents.isFolder;
+
     setFileSystem(newFolderContents);
-    setCurrentFilePath((prev) => prev + folderName + "/");
   };
 
   return (
@@ -100,6 +101,7 @@ const MyDrive = () => {
                   isUploading={isUploading}
                   setIsUploading={setIsUploading}
                   setUploadProgress={setUploadProgress}
+                  currentFilePath={currentFilePath}
                 />
               </div>
             </div>

@@ -5,14 +5,13 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const FileUploader = ({ setIsUploading, setUploadProgress }) => {
-  const {
-    currentFilePath,
-    setFileSystem,
-    setTotalStorage,
-    setStorageBreakdown,
-    totalStorage,
-  } = useOutletContext();
+const FileUploader = ({
+  setIsUploading,
+  setUploadProgress,
+  currentFilePath,
+}) => {
+  const { setFileSystem, setTotalStorage, setStorageBreakdown, totalStorage } =
+    useOutletContext();
 
   const hiddenUploader = useRef(null);
 
@@ -33,26 +32,28 @@ const FileUploader = ({ setIsUploading, setUploadProgress }) => {
     } else {
       try {
         setIsUploading(true);
-        await Storage.put(
-          `${currentFilePath ? currentFilePath : ""}${file.name}`,
-          file,
-          {
-            progressCallback(progress) {
-              setUploadProgress((progress.loaded / progress.total) * 100);
-            },
-          }
-        );
+        const uploadUrl = currentFilePath + file.name;
+        console.log("uploading to", uploadUrl);
+        await Storage.put(uploadUrl, file, {
+          progressCallback(progress) {
+            setUploadProgress((progress.loaded / progress.total) * 100);
+          },
+        });
         setTimeout(() => {
           setIsUploading(false);
         }, 5000);
-        const result = await Storage.vault.list("");
-        if (result.length) {
-          const { parsedFiles, totalStorageUsed, storageBreakdown } =
-            processStorageList(result);
-          setFileSystem(parsedFiles);
-          setTotalStorage(totalStorageUsed);
-          setStorageBreakdown(storageBreakdown);
-        }
+        const result = await Storage.vault.list(currentFilePath);
+        const { parsedFiles, totalStorageUsed, storageBreakdown } =
+          processStorageList(result);
+
+        console.log("after upload: ", parsedFiles);
+        let [currentFolderName] = Object.keys(parsedFiles);
+        const newFileSystem = parsedFiles[currentFolderName];
+        delete newFileSystem.__data;
+        delete newFileSystem.isFolder;
+        setFileSystem(newFileSystem);
+        setTotalStorage(totalStorageUsed);
+        setStorageBreakdown(storageBreakdown);
       } catch (error) {
         setIsUploading(false);
         console.log(error);

@@ -13,6 +13,10 @@ import Login from "./components/auth/Login";
 Amplify.configure(awsconfig);
 Storage.configure({ level: "private" });
 
+console.log(
+  "👋 Hey fellow developer! If you're interested in how I built this website, check out my github https://github.com/matt-yard/file-cloud. Thanks for stopping by!"
+);
+
 const router = createBrowserRouter([
   {
     path: "/",

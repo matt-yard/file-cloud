@@ -58,7 +58,12 @@ const FileTile = ({ currentFile, openFolder, name }) => {
 
       const { parsedFiles, totalStorageUsed, storageBreakdown } =
         processStorageList(result);
-      setFileSystem(parsedFiles);
+      console.log("parsed files after delete", parsedFiles);
+      const [currentFolderName] = Object.keys(parsedFiles);
+      const newFileSystem = parsedFiles[currentFolderName];
+      delete newFileSystem.__data;
+      delete newFileSystem.isFolder;
+      setFileSystem(newFileSystem);
       setTotalStorage(totalStorageUsed);
       setStorageBreakdown(storageBreakdown);
     } catch (error) {
