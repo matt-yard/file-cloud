@@ -1,4 +1,40 @@
 #storage-info-container {
   min-width: 400px;
   max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-container {
+  height: 280px;
+  width: 280px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+#total-storage {
+  position: absolute;
+  top: 320px;
+}
+
+#total-storage p {
+  margin: 0;
+}
+
+#main-storage-number {
+  font-size: 30px;
+  margin: 0;
+  color: #583da1;
+  font-weight: 800;
+}
+
+.storage-key {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
 }

@@ -33,15 +33,50 @@ export const processStorageList = (files) => {
     }
   };
   files.forEach((item) => add(item.key, fileSystem, item));
-
+  const storageBreakdownByCategory = {};
   for (const key in storageBreakdown) {
-    storageBreakdown[key] = (storageBreakdown[key] * 0.000001).toFixed(2);
+    const legend = {
+      mp4: "Video",
+      mov: "Video",
+      mp3: "Audio",
+      wav: "Audio",
+      m4a: "Audio",
+      jpg: "Photo",
+      jpeg: "Photo",
+      png: "Photo",
+      raw: "Photo",
+      gif: "Photo",
+    };
+    let currentCategory = legend[key];
+    if (!currentCategory) {
+      if (storageBreakdownByCategory.Documents) {
+        storageBreakdownByCategory.Documents += storageBreakdown[key];
+      } else {
+        storageBreakdownByCategory.Documents = storageBreakdown[key];
+      }
+    } else {
+      if (storageBreakdownByCategory[currentCategory]) {
+        storageBreakdownByCategory[currentCategory] += storageBreakdown[key];
+      } else {
+        storageBreakdownByCategory[currentCategory] = storageBreakdown[key];
+      }
+    }
+    // storageBreakdown[key] = (storageBreakdown[key] * 0.000001).toFixed(2);
   }
+
+  for (const key in storageBreakdownByCategory) {
+    let num = parseFloat(
+      (storageBreakdownByCategory[key] * 0.000001).toFixed(2)
+    );
+    storageBreakdownByCategory[key] = num;
+  }
+
+  console.log(storageBreakdownByCategory);
 
   return {
     parsedFiles: fileSystem,
     totalStorageUsed: (totalStorageUsed * 0.000001).toFixed(2),
-    storageBreakdown,
+    storageBreakdown: storageBreakdownByCategory,
   };
 };
 
