@@ -111,3 +111,6 @@
   border-bottom: 4px;
   cursor: pointer;
 }
+.more-options:hover {
+  cursor: pointer;
+}
