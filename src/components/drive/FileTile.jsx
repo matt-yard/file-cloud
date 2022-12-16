@@ -11,6 +11,7 @@ import "../../styles/FileTile.css";
 import { useOutletContext } from "react-router-dom";
 import { processStorageList } from "../../util";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const FileIcon = ({ type, size, color }) => {
   const icons = {
@@ -52,20 +53,33 @@ const FileTile = ({ currentFile, openFolder, name }) => {
   const handleDelete = async (e) => {
     setShowTooltip(false);
     try {
-      let fileNameToDelete = currentFile.__data.key;
+      if (Object.keys(currentFile).length > 2) {
+        toast.error("Folder couldn't be deleted because it isn't empty.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
+        let fileNameToDelete = currentFile.__data.key;
 
-      const response = await Storage.remove(fileNameToDelete);
+        const response = await Storage.remove(fileNameToDelete);
 
-      const result = await Storage.vault.list("");
-      console.log("result after delete", result);
-      const { parsedFiles, totalStorageUsed, storageBreakdown } =
-        processStorageList(result);
-      console.log("parsed files after delete", parsedFiles);
+        const result = await Storage.vault.list("");
+        console.log("result after delete", result);
+        const { parsedFiles, totalStorageUsed, storageBreakdown } =
+          processStorageList(result);
+        console.log("parsed files after delete", parsedFiles);
 
-      setFileSystem(parsedFiles);
+        setFileSystem(parsedFiles);
 
-      setTotalStorage(totalStorageUsed);
-      setStorageBreakdown(storageBreakdown);
+        setTotalStorage(totalStorageUsed);
+        setStorageBreakdown(storageBreakdown);
+      }
     } catch (error) {
       console.log(error);
     }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../styles/StorageInfo.css";
 import { FaCircle } from "react-icons/fa";
 import StorageChart from "./StorageChart";
