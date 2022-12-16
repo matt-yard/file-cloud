@@ -20,7 +20,7 @@ function App() {
         const { parsedFiles, totalStorageUsed, storageBreakdown } =
           processStorageList(result);
         setFileSystem(parsedFiles);
-        setTotalStorage(totalStorageUsed);
+        setTotalStorage(+totalStorageUsed);
         setStorageBreakdown(storageBreakdown);
       } catch (error) {
         console.log(error);
