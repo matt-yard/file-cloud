@@ -1,3 +1,10 @@
+import { AiOutlineFile } from "react-icons/ai";
+import { VscFilePdf } from "react-icons/vsc";
+import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
+import { IoDocumentTextOutline } from "react-icons/io5";
+import { BiMoviePlay, BiSpreadsheet } from "react-icons/bi";
+import { FaFolder, FaFileAudio, FaRegFilePowerpoint } from "react-icons/fa";
+
 export const processStorageList = (files) => {
   const fileSystem = {};
   let totalStorageUsed = 0;
@@ -147,4 +154,26 @@ export const getMediaType = (fileType) => {
   } else {
     return "Documents";
   }
+};
+
+export const icons = {
+  pdf: VscFilePdf,
+  folder: FaFolder,
+  jpeg: MdOutlinePhotoSizeSelectActual,
+  png: MdOutlinePhotoSizeSelectActual,
+  jpg: MdOutlinePhotoSizeSelectActual,
+  pages: IoDocumentTextOutline,
+  doc: IoDocumentTextOutline,
+  docx: IoDocumentTextOutline,
+  txt: IoDocumentTextOutline,
+  mov: BiMoviePlay,
+  mp4: BiMoviePlay,
+  mp3: FaFileAudio,
+  default: AiOutlineFile,
+  ppt: FaRegFilePowerpoint,
+  key: FaRegFilePowerpoint,
+  numbers: BiSpreadsheet,
+  xlsx: BiSpreadsheet,
+  xls: BiSpreadsheet,
+  xlm: BiSpreadsheet,
 };

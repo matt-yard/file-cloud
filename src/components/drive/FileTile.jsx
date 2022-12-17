@@ -1,35 +1,15 @@
 import React, { useState } from "react";
-import { FaFolder, FaFileAudio } from "react-icons/fa";
 import { BsThreeDotsVertical, BsFillTrashFill } from "react-icons/bs";
-import { VscFilePdf } from "react-icons/vsc";
-import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
-import { IoDocumentTextOutline } from "react-icons/io5";
-import { BiMoviePlay, BiDownload } from "react-icons/bi";
+import { BiDownload } from "react-icons/bi";
 import { Storage } from "aws-amplify";
-import { AiOutlineFile } from "react-icons/ai";
 import "../../styles/FileTile.css";
 import { useOutletContext } from "react-router-dom";
 import { processStorageList, getMediaType, colors } from "../../util";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { icons } from "../../util";
 
 const FileIcon = ({ type, size }) => {
-  const icons = {
-    pdf: VscFilePdf,
-    folder: FaFolder,
-    jpeg: MdOutlinePhotoSizeSelectActual,
-    png: MdOutlinePhotoSizeSelectActual,
-    jpg: MdOutlinePhotoSizeSelectActual,
-    pages: IoDocumentTextOutline,
-    doc: IoDocumentTextOutline,
-    docx: IoDocumentTextOutline,
-    txt: IoDocumentTextOutline,
-    mov: BiMoviePlay,
-    mp4: BiMoviePlay,
-    mp3: FaFileAudio,
-    default: AiOutlineFile,
-  };
-
   const IconComponent = icons[type] || icons.default;
 
   const mediaType = getMediaType(type);
