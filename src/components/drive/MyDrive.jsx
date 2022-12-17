@@ -72,7 +72,7 @@ const MyDrive = () => {
             setTotalStorage(totalStorageUsed);
             setStorageBreakdown(storageBreakdown);
             setCreatingFolder(false);
-            setCurrentFilePath("");
+
             toast.success("Folder Created!", {
               position: "top-right",
               autoClose: 5000,
@@ -94,11 +94,6 @@ const MyDrive = () => {
   };
 
   const openFolder = (folder, folderName) => {
-    // const newFolderContents = { ...folder };
-    // console.log(currentFileSystem);
-    // let newFileSystem = getFolderContents(folderName, currentFileSystem);
-    // console.log("newFileSystem", newFileSystem);
-    // setCurrentFileSystem(newFileSystem);
     setCurrentFilePath(folder.__data.key);
   };
 
