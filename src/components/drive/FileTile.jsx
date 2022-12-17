@@ -9,11 +9,11 @@ import { Storage } from "aws-amplify";
 import { AiOutlineFile } from "react-icons/ai";
 import "../../styles/FileTile.css";
 import { useOutletContext } from "react-router-dom";
-import { processStorageList } from "../../util";
+import { processStorageList, getMediaType, colors } from "../../util";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
-const FileIcon = ({ type, size, color }) => {
+const FileIcon = ({ type, size }) => {
   const icons = {
     pdf: VscFilePdf,
     folder: FaFolder,
@@ -31,6 +31,10 @@ const FileIcon = ({ type, size, color }) => {
   };
 
   const IconComponent = icons[type] || icons.default;
+
+  const mediaType = getMediaType(type);
+
+  const color = colors[mediaType];
 
   return <IconComponent size={size} color={color} />;
 };
@@ -116,7 +120,11 @@ const FileTile = ({ currentFile, openFolder, name }) => {
               />
             </div>
             <div className="folder-text-container">
-              <p className="file-name">{name}</p>
+              <p className="file-name">
+                {name.length > 20
+                  ? `${name.slice(0, 10)}...${name.slice(-10)}`
+                  : name}
+              </p>
               <p className="file-subtext">{currentFile.__data.lastModified}</p>
             </div>
           </div>
@@ -128,7 +136,7 @@ const FileTile = ({ currentFile, openFolder, name }) => {
               onMouseLeave={() => setShowTooltip(false)}
             >
               <div className="tooltip-option" onClick={handleDownload}>
-                <BiDownload size="20px" color="#583da1" />
+                <BiDownload size="20px" />
                 <p>
                   <a href={downloadLink} target="_blank" rel="noreferrer">
                     Download
@@ -150,7 +158,7 @@ const FileTile = ({ currentFile, openFolder, name }) => {
         <div className="file-item-container">
           <div className="file-item">
             <div className="file-item-top">
-              <FileIcon type={currentFile.fileType} size="50px" color="gray" />
+              <FileIcon type={currentFile.fileType} size="50px" />
 
               <BsThreeDotsVertical
                 size="25px"
@@ -160,7 +168,11 @@ const FileTile = ({ currentFile, openFolder, name }) => {
               />
             </div>
 
-            <p className="file-name">{name}</p>
+            <p className="file-name">
+              {name.length > 20
+                ? `${name.slice(0, 10)}...${name.slice(-10)}`
+                : name}
+            </p>
             <p className="file-subtext">
               {currentFile?.__data?.lastModified.toLocaleString()}
             </p>

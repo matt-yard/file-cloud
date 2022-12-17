@@ -143,10 +143,13 @@ const MyDrive = () => {
           <div className="flex-row">
             <div id="file-container">
               <div id="file-container-header">
-                <div id="back-button" onClick={handleGoBack}>
-                  <IoChevronBack size="30px" />
-                  <p>Back</p>
-                </div>
+                {currentFilePath && (
+                  <div id="back-button" onClick={handleGoBack}>
+                    <IoChevronBack size="30px" />
+                    <p>Back</p>
+                  </div>
+                )}
+
                 <h1>My Cloud</h1>
                 <p>{currentFilePath}</p>
               </div>

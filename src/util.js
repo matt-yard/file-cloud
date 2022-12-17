@@ -119,3 +119,32 @@ export const navigateToFolder = (path, fileSystem) => {
 
   return newFileSystem;
 };
+
+export const colors = {
+  Video: "#B497D6",
+  Documents: "#583da1",
+  Audio: "#05204A",
+  Photo: "#5296A5",
+  folder: "#583da1",
+};
+
+export const getMediaType = (fileType) => {
+  const legend = {
+    mp4: "Video",
+    mov: "Video",
+    mp3: "Audio",
+    wav: "Audio",
+    m4a: "Audio",
+    jpg: "Photo",
+    jpeg: "Photo",
+    png: "Photo",
+    raw: "Photo",
+    gif: "Photo",
+  };
+
+  if (legend[fileType]) {
+    return legend[fileType];
+  } else {
+    return "Documents";
+  }
+};

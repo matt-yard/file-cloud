@@ -1,17 +1,11 @@
 import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import { colors } from "../../util";
 
 ChartJS.register(ArcElement);
 
 const StorageChart = ({ storageBreakdown, totalStorage }) => {
-  const colors = {
-    Video: "#B497D6",
-    Documents: "#583da1",
-    Audio: "#05204A",
-    Photo: "#5296A5",
-  };
-
   const chartColors = [];
   const chartData = [];
 

@@ -2,13 +2,7 @@ import React from "react";
 import "../../styles/StorageInfo.css";
 import { FaCircle } from "react-icons/fa";
 import StorageChart from "./StorageChart";
-
-const colors = {
-  Video: "#B497D6",
-  Documents: "#583da1",
-  Audio: "#05204A",
-  Photo: "#5296A5",
-};
+import { colors } from "../../util";
 
 const StorageInfo = ({ storage: { totalStorage, storageBreakdown } }) => {
   return (
