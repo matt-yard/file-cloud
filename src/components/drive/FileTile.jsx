@@ -67,7 +67,7 @@ const FileTile = ({ currentFile, openFolder, name }) => {
       } else {
         let fileNameToDelete = currentFile.__data.key;
 
-        const response = await Storage.remove(fileNameToDelete);
+        await Storage.remove(fileNameToDelete);
 
         const result = await Storage.vault.list("");
         console.log("result after delete", result);

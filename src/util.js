@@ -71,8 +71,6 @@ export const processStorageList = (files) => {
     storageBreakdownByCategory[key] = num;
   }
 
-  console.log(storageBreakdownByCategory);
-
   return {
     parsedFiles: fileSystem,
     totalStorageUsed: (totalStorageUsed * 0.000001).toFixed(2),
