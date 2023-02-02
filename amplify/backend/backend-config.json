@@ -28,10 +28,17 @@
     }
   },
   "storage": {
-    "s3a490de65": {
+    "s3ac9310f3": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": []
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "providerPlugin": "awscloudformation",
+      "type": "manual"
     }
   }
 }
